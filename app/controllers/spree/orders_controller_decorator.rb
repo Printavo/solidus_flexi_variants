@@ -1,7 +1,6 @@
 module Spree
   module OrdersControllerDecorator
-
-    def prepend(base)
+    def self.prepended(base)
       base.include ProductCustomizations
       base.include AdHocUtils
 
