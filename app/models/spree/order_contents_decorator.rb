@@ -71,7 +71,7 @@ module Spree
         order.order_stock_locations.create!(stock_location_id: stock_location_id, quantity: quantity, variant_id: line_item.variant_id) unless quantity.to_i.zero?
       end
     end
+
+    Spree::OrderContents.prepend self
   end
 end
-
-Spree::OrderContents.prepend Spree::OrderContentsDecorator
