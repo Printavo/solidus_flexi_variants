@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  solidus_version = '>= 1.0.0', '< 3'
+  solidus_version = '>= 1.0.0'
 
   s.add_dependency('carrierwave')
   s.add_dependency('mini_magick')
