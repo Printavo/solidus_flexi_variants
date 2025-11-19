@@ -1,7 +1,7 @@
 module Spree
   class ProductCustomization < ActiveRecord::Base
     belongs_to :product_customization_type
-    belongs_to :line_item
+    belongs_to :line_item, class_name: 'Spree::LineItem', inverse_of: :product_customizations
     has_many :customized_product_options, dependent: :destroy
     # TODO: Jeff, add 'required'
 

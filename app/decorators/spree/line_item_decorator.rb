@@ -2,7 +2,7 @@ module LineItemDecorator
   def self.prepended(base)
     base.has_many :ad_hoc_option_values_line_items, dependent: :destroy
     base.has_many :ad_hoc_option_values, through: :ad_hoc_option_values_line_items
-    base.has_many :product_customizations, dependent: :destroy
+    base.has_many :product_customizations, class_name: 'Spree::ProductCustomization', dependent: :destroy, inverse_of: :line_item
 
     base.validate :product_customization_should_exist_if_required
   end
