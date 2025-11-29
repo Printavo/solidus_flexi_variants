@@ -7,8 +7,8 @@ module ProductDecorator
     base.has_many :ad_hoc_variant_exclusions, dependent: :destroy
 
     # allowed customizations
-    base.has_many :product_customization_types_products, class_name: '::Spree::ProductCustomizationTypesProduct'
-    base.has_many :product_customization_types, through: :product_customization_types_products
+    base.has_many :product_customization_types_products, class_name: '::Spree::ProductCustomizationTypesProduct', dependent: :destroy, autosave: true
+    base.has_many :product_customization_types, through: :product_customization_types_products, autosave: true
   end
 
   private
