@@ -23,7 +23,7 @@ FactoryBot.define do
 
   factory :customized_product_option, class: Spree::CustomizedProductOption do
     transient do
-      # factory_bot 4.x: static attributes via block syntax (mirrors thoughtbot/factory_bot#857)
+      # factory_bot 4.x: static attributes via block syntax (mirrors thoughtbot/factory_bot#1135)
       product_option_name { 'inscription' }
     end
 
