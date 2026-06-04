@@ -23,20 +23,19 @@ Gem::Specification.new do |s|
   s.add_dependency 'solidus_core', solidus_version
   s.add_dependency 'solidus_support'
 
-  s.add_development_dependency 'rspec-rails', '~> 3.2'
+  # rspec-rails 8.x dropped fixture_path=; 7.1 is the last line compatible with the harness.
+  s.add_development_dependency 'rspec-rails', '~> 7.1'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'capybara-screenshot'
-  s.add_development_dependency 'poltergeist', '~> 1.9'
   s.add_development_dependency 'coffee-rails'
-  s.add_development_dependency 'coveralls'
-  s.add_development_dependency 'database_cleaner',   '~> 1.2'
-  s.add_development_dependency 'factory_bot'
+  s.add_development_dependency 'database_cleaner', '~> 2.0'
+  # factory_bot 4.x (resolves 4.11.1) is the version Solidus 2.11 testing_support targets.
+  s.add_development_dependency 'factory_bot', '~> 4.8'
+  s.add_development_dependency 'factory_bot_rails', '~> 4.8'
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'sass-rails'
-  s.add_development_dependency 'shoulda-matchers', '~> 2.7'
-  s.add_development_dependency 'simplecov'#, '~> 0.9.0'
+  s.add_development_dependency 'shoulda-matchers'
+  s.add_development_dependency 'simplecov'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'launchy'
-  s.add_development_dependency 'xray-rails'
-  s.add_development_dependency 'jazz_fingers'
 end

@@ -34,7 +34,8 @@ describe 'Ad Hoc Variant Exclusions', :js, type: :feature do
       setup_option_types_plus_ad_hoc_option_type_color(test_product)
       setup_option_types_plus_ad_hoc_option_type_size(test_product)
       ad_hoc_red = Spree::OptionValue.find_by(presentation: 'Red').ad_hoc_option_values.first
-      ad_hoc_red.update_attributes(price_modifier: 5.00)
+      # Rails 6.1: update_attributes removed; use update (mirrors rails/rails#31998)
+      ad_hoc_red.update(price_modifier: 5.00)
       visit spree.product_path(test_product)
     end
 

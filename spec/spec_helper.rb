@@ -17,26 +17,29 @@ require 'spree/testing_support/preferences'
 require 'spree/testing_support/authorization_helpers'
 require 'spree/testing_support/capybara_ext'
 require 'spree/testing_support/controller_requests'
-require 'spree/testing_support/factories'
 require 'spree/testing_support/url_helpers'
 require 'spree/testing_support/order_walkthrough'
 
+# Rails 7.1+: 'spree/testing_support/factories' + cherry-picked loading triggers a class-level
+# Spree::Deprecation.warn that crashes; use the non-deprecated loader the in-tree deprecation
+# points to. add_paths_and_load! unshifts the Solidus core factory paths and reloads; this
+# extension's own factories under spec/factories are already on FactoryBot's default relative
+# paths (mirrors solidusio/solidus#3907).
+require 'spree/testing_support/factory_bot'
+Spree::TestingSupport::FactoryBot.add_paths_and_load!
+
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
-require 'capybara/poltergeist'
-Capybara.register_driver(:poltergeist) do |app|
-  Capybara::Poltergeist::Driver.new app, {
-    phantomjs_options: %w[--ssl-protocol=any --ignore-ssl-errors=true --load-images=false],
-    timeout: 90
-  }
-end
-Capybara.javascript_driver = :poltergeist
+
 Capybara.default_max_wait_time = 10
 
+# Safe-YAML: permit the column types this extension persists so Psych does not raise
+# Psych::DisallowedClass under Rails' CVE-2022-32224 hardening (mirrors solidusio/solidus#4451).
+if ActiveRecord.respond_to?(:yaml_column_permitted_classes)
+  ActiveRecord.yaml_column_permitted_classes |= [BigDecimal, Date, Symbol, Time]
+end
+
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
-Dir[File.join(File.dirname(__FILE__), 'factories/*.rb')].each { |f| require f }
-
-
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
